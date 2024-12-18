@@ -13,6 +13,7 @@ import java.util.List;
 @RequestMapping("/items")
 @Valid
 public class ItemController {
+    private static final String X_SHARER_USER_ID = "X-Sharer-User-Id";
     private final ItemService itemService;
 
     public ItemController(ItemService itemService) {
@@ -21,25 +22,25 @@ public class ItemController {
 
     @PostMapping
     public ItemDto addItem(@RequestBody @Valid CreateItemDto createItemDto,
-                           @RequestHeader("X-Sharer-User-Id") Long userId) {
+                           @RequestHeader(X_SHARER_USER_ID) Long userId) {
         return itemService.createItem(createItemDto, userId);
     }
 
     @PatchMapping("/{itemId}")
     public ItemDto updateItem(@PathVariable Long itemId,
                               @RequestBody @Valid UpdateItemDto updateItemDto,
-                              @RequestHeader("X-Sharer-User-Id") Long userId) {
+                              @RequestHeader(X_SHARER_USER_ID) Long userId) {
         return itemService.updateItem(itemId, updateItemDto, userId);
     }
 
     @GetMapping("/{itemId}")
     public ItemDto getItem(@PathVariable Long itemId,
-                           @RequestHeader("X-Sharer-User-Id") Long userId) {
+                           @RequestHeader(X_SHARER_USER_ID) Long userId) {
         return itemService.getItemById(itemId, userId);
     }
 
     @GetMapping
-    public List<ItemDto> getItemsByOwner(@RequestHeader("X-Sharer-User-Id") Long userId) {
+    public List<ItemDto> getItemsByOwner(@RequestHeader(X_SHARER_USER_ID) Long userId) {
         return itemService.getItemsByOwner(userId);
     }
 
