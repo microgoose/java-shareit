@@ -5,6 +5,6 @@ import ru.practicum.shareit.common.exceptions.ValidationException;
 
 public class ItemNotFound extends ValidationException {
     public ItemNotFound(Long id) {
-        super("Item with id: " + id + " not found", HttpStatus.NOT_FOUND);
+        super("Вещь с id: " + id + " не найденна", HttpStatus.NOT_FOUND);
     }
 }

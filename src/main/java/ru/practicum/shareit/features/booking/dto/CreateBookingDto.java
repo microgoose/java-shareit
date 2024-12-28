@@ -7,11 +7,10 @@ import ru.practicum.shareit.features.user.dto.UserDto;
 import java.time.LocalDateTime;
 
 @Data
-public class BookingDto {
+public class CreateBookingDto {
     private Long id;
     private LocalDateTime start;
     private LocalDateTime end;
-    private ItemDto item;
-    private UserDto booker;
+    private Long itemId;
     private String status;
 }

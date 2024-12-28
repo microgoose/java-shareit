@@ -16,7 +16,6 @@ import ru.practicum.shareit.features.user.model.User;
 import ru.practicum.shareit.features.user.repository.UserRepository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -70,10 +69,10 @@ public class ItemServiceImpl implements ItemService {
     }
 
     private User getUserById(Long userId) {
-        return Optional.ofNullable(userRepository.findById(userId)).orElseThrow(() -> new UserNotFound(userId));
+        return userRepository.findById(userId).orElseThrow(() -> new UserNotFound(userId));
     }
 
     private Item getItemById(Long itemId) {
-        return Optional.ofNullable(itemRepository.findById(itemId)).orElseThrow(() -> new ItemNotFound(itemId));
+        return itemRepository.findById(itemId).orElseThrow(() -> new ItemNotFound(itemId));
     }
 }
