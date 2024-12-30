@@ -15,11 +15,9 @@ import ru.practicum.shareit.features.item.exception.ItemNotFound;
 import ru.practicum.shareit.features.item.exception.OwnerNotFound;
 import ru.practicum.shareit.features.item.model.Item;
 import ru.practicum.shareit.features.item.repository.ItemRepository;
-import ru.practicum.shareit.features.item.service.ItemService;
 import ru.practicum.shareit.features.user.exception.UserNotFound;
 import ru.practicum.shareit.features.user.model.User;
 import ru.practicum.shareit.features.user.repository.UserRepository;
-import ru.practicum.shareit.features.user.service.UserService;
 
 import java.util.List;
 import java.util.stream.Collectors;

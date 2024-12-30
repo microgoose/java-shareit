@@ -1,13 +1,26 @@
 package ru.practicum.shareit.features.item.mapper;
 
-import ru.practicum.shareit.features.item.dto.CreateItemDto;
-import ru.practicum.shareit.features.item.dto.ItemDto;
-import ru.practicum.shareit.features.item.dto.UpdateItemDto;
+import ru.practicum.shareit.features.item.dto.*;
 import ru.practicum.shareit.features.item.model.Item;
-import ru.practicum.shareit.features.request.model.ItemRequest;
 import ru.practicum.shareit.features.user.model.User;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 public class ItemMapper {
+    public static BookingItemDto toItemDto(Item item, LocalDateTime lastBooking, LocalDateTime nextBooking, List<CommentDto> comments) {
+        return new BookingItemDto(
+            item.getId(),
+            item.getName(),
+            item.getDescription(),
+            item.isAvailable(),
+            item.getRequest() != null ? item.getRequest().getId() : null,
+            lastBooking,
+            nextBooking,
+            comments
+        );
+    }
+
     public static ItemDto toItemDto(Item item) {
         return new ItemDto(
             item.getId(),
@@ -16,16 +29,6 @@ public class ItemMapper {
             item.isAvailable(),
             item.getRequest() != null ? item.getRequest().getId() : null
         );
-    }
-
-    public static Item toItem(ItemDto itemDto, ItemRequest request) {
-        Item item = new Item();
-        item.setId(itemDto.getId());
-        item.setName(itemDto.getName());
-        item.setDescription(itemDto.getDescription());
-        item.setAvailable(itemDto.isAvailable());
-        item.setRequest(request);
-        return item;
     }
 
     public static Item toItem(CreateItemDto createItemDto, User owner) {
