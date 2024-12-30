@@ -35,7 +35,7 @@ public class BookingService {
         this.itemRepository = itemRepository;
     }
 
-    
+
     @Transactional
     public BookingDto createBooking(Long bookerId, CreateBookingDto createBookingDto) {
         if (createBookingDto.getItemId() == null)
@@ -78,7 +78,7 @@ public class BookingService {
 
         return BookingMapper.mapToDto(updatedBooking);
     }
-    
+
     public BookingDto getBookingById(Long bookingId) {
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new BookingNotFound(bookingId));
@@ -93,7 +93,7 @@ public class BookingService {
                 .collect(Collectors.toList());
     }
 
-    
+
     public List<BookingDto> getOwnerBookings(Long ownerId, BookingStatus state) {
         List<Booking> bookings = bookingRepository.findBookingsByOwnerAndState(ownerId, state);
 
