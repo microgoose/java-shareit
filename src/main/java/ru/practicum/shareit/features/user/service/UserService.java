@@ -9,6 +9,7 @@ import ru.practicum.shareit.features.user.model.User;
 import ru.practicum.shareit.features.user.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -19,7 +20,7 @@ public class UserService {
     }
 
     public UserDto createUser(String name, String email) {
-        if (userRepository.containsEmail(email)) {
+        if (userRepository.existsByEmail(email)) {
             throw new EmailExistException(email);
         }
 
@@ -37,16 +38,18 @@ public class UserService {
     }
 
     public UserDto getUserById(Long id) {
-        User user = userRepository.findById(id);
-        return user != null ? UserMapper.toUserDto(user) : null;
+        Optional<User> userOptional = userRepository.findById(id);
+        return userOptional.map(UserMapper::toUserDto).orElse(null);
     }
 
     public UserDto updateUser(Long id, String name, String email) {
-        User user = userRepository.findById(id);
+        Optional<User> userOptional = userRepository.findById(id);
+        User user = userOptional.orElse(null);
+
         if (user == null) {
             throw new UserNotFound(id);
         }
-        if (userRepository.containsEmail(id, email)) {
+        if (userRepository.existsByEmailAndNotId(id, email)) {
             throw new EmailExistException(email);
         }
         if (name != null && !name.isBlank()) {
@@ -55,11 +58,12 @@ public class UserService {
         if (email != null && !email.isBlank()) {
             user.setEmail(email);
         }
+
         user = userRepository.save(user);
         return UserMapper.toUserDto(user);
     }
 
-    public boolean deleteUser(Long id) {
-        return userRepository.deleteById(id);
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 }
