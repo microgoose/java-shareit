@@ -1,6 +1,6 @@
 package ru.practicum.shareit.features.request.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.config.HTTPHeadersConfig;
@@ -14,14 +14,10 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(path = "/requests")
+@RequiredArgsConstructor
 public class ItemRequestController {
 
     private final ItemRequestService itemRequestService;
-
-    @Autowired
-    public ItemRequestController(ItemRequestService itemRequestService) {
-        this.itemRequestService = itemRequestService;
-    }
 
     @PostMapping
     public ResponseEntity<ItemRequestDto> createRequest(

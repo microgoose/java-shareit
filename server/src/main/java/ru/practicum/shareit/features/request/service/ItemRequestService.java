@@ -1,7 +1,7 @@
 package ru.practicum.shareit.features.request.service;
 
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.features.request.dto.ItemRequestDto;
 import ru.practicum.shareit.features.request.mapper.ItemRequestMapper;
@@ -13,14 +13,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ItemRequestService {
 
     private final ItemRequestRepository itemRequestRepository;
-
-    @Autowired
-    public ItemRequestService(ItemRequestRepository itemRequestRepository) {
-        this.itemRequestRepository = itemRequestRepository;
-    }
 
     public ItemRequestDto createRequest(ItemRequestDto itemRequestDto, Long userId) {
         ItemRequest request = ItemRequestMapper.mapToEntity(itemRequestDto, userId);
